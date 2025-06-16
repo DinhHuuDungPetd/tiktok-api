@@ -1,0 +1,11 @@
+# Ngoại lệ cho các file cụ thể ở root
+!Dockerfile
+!docker-compose.yml
+
+# Ngoại lệ cho thư mục build và tất cả bên trong nó
+build/
+build/**
+
+#/target
+target/**
+/src/main/resources/cjf.json

@@ -1,0 +1,11 @@
+services:
+  springboot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: springboot-tiktok
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+    environment:
+      - SERVER_PORT=8081
