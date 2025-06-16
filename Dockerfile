@@ -1,14 +1,20 @@
-# Stage 1: Build ứng dụng với Maven
+# Build stage
 FROM maven:3.6.3-openjdk-17 AS build
-WORKDIR /build
+
+WORKDIR /app
+
 COPY pom.xml .
 COPY src ./src
+
 RUN mvn clean package -DskipTests
 
-# Stage 2: Chạy ứng dụng
+# Run stage
 FROM openjdk:17-jdk-slim
+
 WORKDIR /app
-RUN mkdir -p /app/config
-COPY --from=builder /build/target/*.jar /app/app.jar
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
