@@ -1,5 +1,5 @@
 # Stage 1: Build ứng dụng với Maven
-FROM maven:3.8.6-openjdk-17 AS builder
+FROM maven:3.6.3-openjdk-17 AS build
 WORKDIR /build
 COPY pom.xml .
 COPY src ./src
