@@ -1,14 +1,14 @@
-# Sử dụng image OpenJDK để chạy ứng dụng
+# Stage 1: Build ứng dụng với Maven
+FROM maven:3.8.6-openjdk-17 AS builder
+WORKDIR /build
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Stage 2: Chạy ứng dụng
 FROM openjdk:17-jdk-slim
-
-# Thiết lập thư mục làm việc
 WORKDIR /app
-
-# Copy JAR file from the build stage
-COPY /target/*.jar app.jar
-
-# Expose the port (ví dụ 8081)
+RUN mkdir -p /app/config
+COPY --from=builder /build/target/*.jar /app/app.jar
 EXPOSE 8080
-
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

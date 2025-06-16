@@ -10,16 +10,21 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GoogleDriveUploader {
     private static final String APPLICATION_NAME = "MyApp";
-    private static final String CREDENTIALS_FILE_PATH = "cjf.json";
+
+    @Value("${credentials.file.path:/app/config/cjf.json}")
+    private static final String CREDENTIALS_FILE_PATH = "/home/petd/ggdirve/cjf.json";
 
     public static Drive getDriveService() throws IOException {
         try (InputStream credentialsStream = new ClassPathResource(CREDENTIALS_FILE_PATH).getInputStream() ) {

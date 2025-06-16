@@ -1,11 +1,25 @@
 services:
-  springboot-app:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: springboot-tiktok
+    image: tiktok-api:latest
+    container_name: tiktok-api
     ports:
-      - "8081:8081"
-    restart: unless-stopped
+      - "8080:8080"
     environment:
-      - SERVER_PORT=8081
+      - CREDENTIALS_FILE_PATH=/app/config/cjf.json
+    volumes:
+      - /home/petd/ggdirve/cjf.json:/app/config/cjf.json
+    depends_on:
+      - maven-build
+    restart: unless-stopped
+
+  maven-build:
+    image: maven:3.8.6-openjdk-17
+    volumes:
+      - .:/build
+      - ~/.m2:/root/.m2
+    command: mvn clean package -DskipTests
+    profiles:
+      - build
