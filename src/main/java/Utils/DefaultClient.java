@@ -13,8 +13,8 @@ public class DefaultClient {
 
 
     public static ApiClient getApiClient() {
-        String appKey = "6fikpg3c9k15h" ;
-        String appSecret = "559f7ecd7df57f73118f3b499c6c9d0592c84963";
+        String appKey = "6gfl9omrkcetf" ;
+        String appSecret = "06628b0f3df3fc400663de3a752cdc807fdefebf";
         return Configuration.getDefaultApiClient()
                 .setAppkey(appKey)
                 .setSecret(appSecret)
